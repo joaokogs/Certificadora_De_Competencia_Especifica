@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   LineChart,
   Line,
@@ -13,15 +13,21 @@ import {
 } from "recharts";
 
 export default function ProcessPage() {
-  const search = useSearchParams();
-  const formulaId = search.get("formulaId");
   const router = useRouter();
 
+  // estados
+  const [formulaId, setFormulaId] = useState<string | null>(null);
   const [firstMonth, setFirstMonth] = useState(1);
   const [lastMonth, setLastMonth] = useState(12);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // pegar formulaId só no client
+  useEffect(() => {
+    const search = new URLSearchParams(window.location.search);
+    setFormulaId(search.get("formulaId"));
+  }, []);
 
   const loadData = async (fm: number, lm: number) => {
     if (!formulaId) {
@@ -45,9 +51,7 @@ export default function ProcessPage() {
         `${API}/api/formulas/process?firstMonth=${fm}&lastMonth=${lm}&id=${formulaId}`,
         {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
           cache: "no-store",
         }
       );
@@ -80,6 +84,7 @@ export default function ProcessPage() {
   };
 
   useEffect(() => {
+    if (!formulaId) return;
     loadData(firstMonth, lastMonth);
   }, [formulaId]);
 

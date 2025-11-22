@@ -18,7 +18,7 @@ export type LocalInvestment = {
 export type LocalTax = {
   initial: number | null;
   end: number | null;
-  factor: number;
+  factor: number | null;
   type: "Percent" | "Fixed" | "Multiplier" | "Progressive" | "Regressive" | "Capped";
   applies: "gain" | "capital";
 };
@@ -89,20 +89,32 @@ export default function CreateFormulaPage() {
 
   const handleTaxChange = (
     index: number,
-    field: keyof LocalTax,
+    field: "initial" | "end" | "factor" | "type" | "applies",
     value: string | number | null
   ) => {
     const updated = [...taxes];
     const tax = updated[index];
 
-    if (field === "initial" || field === "end" || field === "factor") {
-      tax[field] = value === "" ? null : Number(value);
-    } else {
-      tax[field] = value as any;
+    switch (field) {
+      case "initial":
+      case "end":
+      case "factor":
+        tax[field] = value === "" ? null : Number(value);
+        break;
+
+      case "type":
+        tax.type = value as LocalTax["type"];
+        break;
+
+      case "applies":
+        tax.applies = value as LocalTax["applies"];
+        break;
     }
 
     setTaxes(updated);
   };
+
+
 
   const handleInvestmentChange = (
     field: keyof LocalInvestment,
@@ -289,7 +301,7 @@ export default function CreateFormulaPage() {
                       <input
                         type="number"
                         step="0.1"
-                        value={tax.factor}
+                        value={tax.factor ?? ""}
                         onChange={(e) =>
                           handleTaxChange(index, "factor", e.target.value)
                         }

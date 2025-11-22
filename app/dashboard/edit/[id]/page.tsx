@@ -31,12 +31,34 @@ export default function EditFormulaPage() {
     type: "Ação",
   });
 
+  type FormulaResponse = {
+    formula: {
+      id: number;
+      name: string;
+      Investments: {
+        id: number;
+        amount: number;
+        factor: number;
+        type: string;
+      }[];
+      Taxes: {
+        id: number;
+        initial: number | null;
+        end: number | null;
+        factor: number;
+        type: string;
+        applies: string;
+      }[];
+    };
+  };
+
   const fetchFormula = async () => {
     try {
-      const res = await apiClient.get(
+      const res = (await apiClient.get(
         `/api/formulas/${id}?firstMonth=1&lastMonth=12`,
         token
-      );
+      )) as FormulaResponse;
+
       setFormula(res.formula);
     } catch (err) {
       console.error("Erro ao buscar fórmula:", err);
@@ -68,7 +90,7 @@ export default function EditFormulaPage() {
           formulaId: Number(id),
           initial: taxForm.initial ? Number(taxForm.initial) : null,
           end: taxForm.end ? Number(taxForm.end) : null,
-          factor: Number(taxForm.factor),
+          factor: taxForm.factor === "" ? null : Number(taxForm.factor),
           type: taxForm.type,
           applies: taxForm.applies,
         },
