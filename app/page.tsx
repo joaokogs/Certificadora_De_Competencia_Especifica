@@ -35,14 +35,9 @@ export default function Home() {
 
             {/* Botões CTA */}
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/calculadora">
+              <Link href="/register">
                 <button className="px-8 py-4 rounded-xl shadow-xl bg-white text-blue-600 font-semibold hover:bg-gray-100 transition-transform hover:scale-105 active:scale-95">
                   🚀 Simular Agora
-                </button>
-              </Link>
-              <Link href="/sobre">
-                <button className="px-8 py-4 rounded-xl shadow-xl border border-white text-white font-semibold hover:bg-white/10 transition-transform hover:scale-105 active:scale-95">
-                  Saiba Mais
                 </button>
               </Link>
             </div>
@@ -119,7 +114,7 @@ export default function Home() {
                 1
               </span>
               <p className="text-gray-700">
-                <span className="font-semibold">Importe seus dados</span> manualmente ou via CSV.
+                <span className="font-semibold">Insira seus dados</span> manualmente
               </p>
             </div>
 
@@ -128,7 +123,7 @@ export default function Home() {
                 2
               </span>
               <p className="text-gray-700">
-                <span className="font-semibold">Simule cenários</span> e períodos de venda diferentes.
+                <span className="font-semibold">Simule cenários</span> e períodos de diferentes
               </p>
             </div>
 
@@ -137,7 +132,7 @@ export default function Home() {
                 3
               </span>
               <p className="text-gray-700">
-                <span className="font-semibold">Visualize relatórios</span> e gráficos intuitivos.
+                <span className="font-semibold">Visualize relatórios</span> e gráficos intuitivos
               </p>
             </div>
 
@@ -162,9 +157,9 @@ export default function Home() {
           <p className="text-gray-600 mb-6 max-w-lg mx-auto">
             Experimente o TaxSim e descubra o impacto real das taxas e impostos.
           </p>
-          <Link href="/calculadora">
+          <Link href="/register">
             <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-green-500 text-white rounded-xl shadow-lg font-semibold hover:opacity-90 transition-transform hover:scale-105 active:scale-95">
-              Acessar Calculadora
+              Cadastrar
             </button>
           </Link>
 

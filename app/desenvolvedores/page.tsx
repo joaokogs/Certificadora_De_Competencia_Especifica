@@ -71,9 +71,7 @@ export default function Desenvolvedores() {
     const developers = [
         { name: "Murillo Tadeu Amadeu", role: "Desenvolvedor Front-end", github: "https://github.com/amadeu-murillo", linkedin: "https://www.linkedin.com/in/murillo-amadeu-14b437270/", avatar: '🐼' },
         { name: "João Pedro Koguishi", role: "Desenvolvedor Full-Stack", github: "https://github.com/joaokogs", linkedin: "https://www.linkedin.com/in/jo%C3%A3o-pedro-koguishi-958423221/", avatar: '🦊' },
-        { name: "Pedro Esteves", role: "Desenvolvedor Back-end & Infra", github: "https://github.com/pedroesteves18", linkedin: "https://www.linkedin.com/in/pedro-esteves-96a558239/", avatar: '🦆' },
-        { name: "Guilherme Oliveira", role: "Analista de Requisitos", github: "#", linkedin: "#", avatar: '🐶' },
-        { name: "João Guilherme", role: "Analista de Dados", github: "#", linkedin: "#", avatar: '🐱' },
+        { name: "Pedro Esteves", role: "Desenvolvedor Back-end, Front-end & Infra", github: "https://github.com/pedroesteves18", linkedin: "https://www.linkedin.com/in/pedro-esteves-96a558239/", avatar: '🦆' }
     ];
 
     return (
@@ -107,7 +105,7 @@ export default function Desenvolvedores() {
                             </span>, unindo tecnologia, inovação e finanças.
                         </p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
                            {developers.map(dev => <DeveloperCard key={dev.name} {...dev} />)}
                         </div>
                     </div>
@@ -148,69 +146,122 @@ export default function Desenvolvedores() {
                                 </div>
                             </div>
 
-                            <pre className="bg-black p-6 text-sm overflow-x-auto">
-                                <code className="whitespace-pre font-mono block">
-                                        <span className="text-gray-400">Exemplo de requisição</span>{'\n'}
-                                    <span className="text-blue-300">POST</span>
-                                    <span> </span>
-                                    <span className="text-purple-300">/api/calculadora</span>{'\n'}
-                                    {'\n'}
-                                    <span className="text-yellow-300">{`{`}</span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">  &quot;tipo&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-orange-300">&quot;renda_fixa&quot;</span>
-                                        <span className="text-white">,</span>
-                                    </span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">  &quot;valor_investido&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">10000</span>
-                                        <span className="text-white">,</span>
-                                    </span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">  &quot;dias&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">365</span>
-                                        <span className="text-white">,</span>
-                                    </span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">  &quot;taxa_corretora&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">0.5</span>
-                                    </span>{'\n'}
-                                    <span className="text-yellow-300">{`}`}</span>{'\n'}
-                                    {'\n'}
-                                        <span className="text-gray-400">Resposta esperada</span>{'\n'}
-                                    <span className="text-yellow-300">{`{`}</span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">  &quot;valor_bruto&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">11000</span>
-                                        <span className="text-white">,</span>
-                                    </span>{'\n'}
-                                    <span className="text-green-300">  &quot;impostos&quot;: </span>
-                                    <span className="text-yellow-300">{`{`}</span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">    &quot;ir&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">150</span>
-                                        <span className="text-white">,</span>
-                                    </span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">    &quot;iof&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">0</span>
-                                    </span>{'\n'}
-                                    <span className="text-yellow-300">  {`}`}</span>{'\n'}
-                                    <span>
-                                        <span className="text-green-300">  &quot;valor_liquido&quot;</span>
-                                        <span className="text-white">: </span>
-                                        <span className="text-cyan-300">10850</span>
-                                    </span>{'\n'}
-                                    <span className="text-yellow-300">{`}`}</span>
-                                </code>
-                            </pre>
+                        <pre className="bg-black p-6 text-sm overflow-x-auto">
+                            <code className="whitespace-pre font-mono block">
+
+                                <span className="text-gray-400">Resposta</span>{'\n'}
+                                <span className="text-yellow-300">{`{`}</span>{'\n'}
+
+                                <span>
+                                    <span className="text-green-300">  &quot;msg&quot;</span>
+                                    <span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;Fórmula criada!&quot;</span><span className="text-white">,</span>
+                                </span>{'\n'}
+
+                                <span className="text-green-300">  &quot;formula&quot;</span><span className="text-white">: </span>
+                                <span className="text-yellow-300">{`{`}</span>{'\n'}
+
+                                <span>
+                                    <span className="text-green-300">    &quot;id&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">11</span><span className="text-white">,</span>
+                                </span>{'\n'}
+
+                                <span>
+                                    <span className="text-green-300">    &quot;name&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;testewq41&quot;</span><span className="text-white">,</span>
+                                </span>{'\n'}
+
+                                <span>
+                                    <span className="text-green-300">    &quot;userId&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">5</span><span className="text-white">,</span>
+                                </span>{'\n'}
+
+                                <span>
+                                    <span className="text-green-300">    &quot;createdAt&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;2025-11-21T00:52:24.600Z&quot;</span><span className="text-white">,</span>
+                                </span>{'\n'}
+
+                                <span>
+                                    <span className="text-green-300">    &quot;updatedAt&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;2025-11-21T00:52:24.600Z&quot;</span><span className="text-white">,</span>
+                                </span>{'\n'}
+
+                                <span className="text-green-300">    &quot;Taxes&quot;</span><span className="text-white">: </span>
+                                <span className="text-yellow-300">[{` `}</span>{'\n'}
+
+                                <span>
+                                    <span className="text-yellow-300">      {`{`}</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;id&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">30</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;initial&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">100</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;end&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">102</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;factor&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">15</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;type&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;Percent&quot;</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;applies&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;gain&quot;</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;formulaId&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">11</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;createdAt&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;2025-11-21T00:52:24.627Z&quot;</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;updatedAt&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;2025-11-21T00:52:24.627Z&quot;</span>{'\n'}
+
+                                    <span className="text-yellow-300">      {`}`}</span>{'\n'}
+                                </span>
+
+                                <span className="text-yellow-300">    ]</span><span className="text-white">,</span>{'\n'}
+
+                                <span className="text-green-300">    &quot;Investments&quot;</span><span className="text-white">: </span>
+                                <span className="text-yellow-300">[{` `}</span>{'\n'}
+
+                                <span>
+                                    <span className="text-yellow-300">      {`{`}</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;id&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">7</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;amount&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">1000</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;factor&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">1.05</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;type&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;Renda Fixa&quot;</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;formulaId&quot;</span><span className="text-white">: </span>
+                                    <span className="text-cyan-300">11</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;createdAt&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;2025-11-21T00:52:24.641Z&quot;</span><span className="text-white">,</span>{'\n'}
+
+                                    <span className="text-green-300">        &quot;updatedAt&quot;</span><span className="text-white">: </span>
+                                    <span className="text-orange-300">&quot;2025-11-21T00:52:24.641Z&quot;</span>{'\n'}
+
+                                    <span className="text-yellow-300">      {`}`}</span>{'\n'}
+                                </span>
+
+                                <span className="text-yellow-300">    ]</span>{'\n'}
+
+                                <span className="text-yellow-300">  {`}`}</span>{'\n'}
+                                <span className="text-yellow-300">{`}`}</span>
+
+                            </code>
+                        </pre>
+
                         </div>
                     </div>
                 </section>

@@ -13,8 +13,6 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/calculadora", label: "Calculadora" },
-    { href: "/sobre", label: "Sobre" },
     { href: "/desenvolvedores", label: "Desenvolvedores" },
   ];
 
@@ -75,6 +73,19 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+
+              {/* NOVO BOTÃO: Criar Fórmula */}
+              <Link
+                href="/dashboard/create"
+                  className={`transition font-medium ${
+                    pathname === "/login"
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
+                  }`}
+              >
+                Nova Fórmula
+              </Link>
+
               <button
                 onClick={logout}
                 className="font-medium text-gray-700 hover:text-blue-600 transition"
@@ -132,7 +143,6 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Links Condicionais de Autenticação Mobile */}
             {user ? (
               <>
                 {authLinks.map((link) => (
@@ -149,6 +159,20 @@ export default function Navbar() {
                     {link.label}
                   </Link>
                 ))}
+
+                {/* Botão Mobile: Nova Fórmula */}
+                <Link
+                  href="/formulas/create"
+                  onClick={() => setMenuOpen(false)}
+                  className={`transition font-medium ${
+                    pathname === "/login"
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
+                  }`}
+                >
+                  Nova Fórmula
+                </Link>
+
                 <button
                   onClick={() => {
                     logout();
