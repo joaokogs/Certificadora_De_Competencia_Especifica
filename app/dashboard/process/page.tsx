@@ -2,15 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import LoadingSkeleton from './components/LoadingSkeleton';
+import ProcessChart from './components/ProcessChart';
+import ProcessTable from './components/ProcessTable';
+import ProcessPeriodControls from './components/ProcessPeriodControls';
 
 export default function ProcessPage() {
   const router = useRouter();
@@ -22,6 +17,15 @@ export default function ProcessPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // Check authentication
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+  }, [router]);
 
   // pegar formulaId só no client
   useEffect(() => {
@@ -38,6 +42,7 @@ export default function ProcessPage() {
 
     try {
       setLoading(true);
+      
       const token = localStorage.getItem("token");
       if (!token) {
         setError("Usuário não autenticado.");
@@ -88,26 +93,26 @@ export default function ProcessPage() {
     loadData(firstMonth, lastMonth);
   }, [formulaId]);
 
-  if (loading)
-    return <main className="p-10 text-xl font-semibold">Carregando simulação...</main>;
+  if (loading) return <LoadingSkeleton />;
 
   if (error)
     return <main className="p-10 text-red-600 text-xl font-semibold">{error}</main>;
 
   return (
-    <main className="p-10">
-      {/* Botão de voltar */}
-      <button
-        onClick={() => router.back()}
-        className="mb-4 px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
-      >
-        ← Voltar
-      </button>
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="p-8 max-w-6xl mx-auto">
+        {/* Botão de voltar */}
+        <button
+          onClick={() => router.back()}
+          className="mb-8 px-6 py-3 rounded-2xl bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-all duration-300 shadow-lg border border-gray-100 font-medium flex items-center gap-2"
+        >
+          ← Voltar
+        </button>
 
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-4xl font-bold text-blue-700">
-          Simulação — {data.name}
-        </h1>
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-8 gap-4">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Simulação — {data.name}
+          </h1>
 
         {/* Botão de download CSV */}
         <button
@@ -116,6 +121,7 @@ export default function ProcessPage() {
 
             try {
               const token = localStorage.getItem("token");
+              
               if (!token) throw new Error("Usuário não autenticado.");
 
               const res = await fetch(
@@ -143,94 +149,29 @@ export default function ProcessPage() {
               alert("Erro ao baixar CSV.");
             }
           }}
-          className="px-4 py-2 rounded-lg bg-green-500 text-white font-medium hover:bg-green-600 transition"
+          className="px-6 py-3 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
-          Download CSV
+          📄 Download CSV
         </button>
       </div>
 
-      <p className="mb-4 text-gray-700 text-lg">
-        Valor inicial: <b>R$ {data.initialAmount}</b>
-      </p>
+        <div className="bg-white rounded-3xl p-6 shadow-xl border border-gray-100 mb-8">
+          <p className="text-gray-700 text-lg font-medium">
+            💰 Valor inicial: <span className="font-bold text-gray-900">R$ {data.initialAmount}</span>
+          </p>
+        </div>      {/* Controle de meses */}
+      <ProcessPeriodControls
+        firstMonth={firstMonth}
+        lastMonth={lastMonth}
+        onFirstMonthChange={setFirstMonth}
+        onLastMonthChange={setLastMonth}
+        onUpdate={() => loadData(firstMonth, lastMonth)}
+      />
 
-      {/* Controle de meses */}
-      <div className="mb-6 flex gap-4">
-        <div>
-          <label className="block text-gray-700">Primeiro mês</label>
-          <input
-            type="number"
-            min={1}
-            value={firstMonth}
-            onChange={(e) => setFirstMonth(parseInt(e.target.value))}
-            className="border rounded px-2 py-1"
-          />
-        </div>
-        <div>
-          <label className="block text-gray-700">Último mês</label>
-          <input
-            type="number"
-            min={firstMonth}
-            value={lastMonth}
-            onChange={(e) => setLastMonth(parseInt(e.target.value))}
-            className="border rounded px-2 py-1"
-          />
-        </div>
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          onClick={() => loadData(firstMonth, lastMonth)}
-        >
-          Atualizar
-        </button>
+      <ProcessChart data={data.rows} />
+
+      <ProcessTable data={data.rows} />
       </div>
-
-      {/* GRÁFICO */}
-      <div className="w-full h-[400px] bg-white rounded-xl shadow p-4 border mb-10">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data.rows}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Line
-              type="monotone"
-              dataKey="beforeTax"
-              stroke="#8884d8"
-              dot={false}
-              strokeWidth={2}
-              name="Antes da Taxa"
-            />
-            <Line
-              type="monotone"
-              dataKey="afterTax"
-              stroke="#82ca9d"
-              dot={false}
-              strokeWidth={2}
-              name="Após Taxa"
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* TABELA */}
-      <h2 className="text-2xl font-bold mb-4">Detalhamento Mensal</h2>
-      <table className="w-full bg-white rounded-xl shadow border">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="p-2 border">Mês</th>
-            <th className="p-2 border">Antes da Taxa</th>
-            <th className="p-2 border">Após Taxa</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.rows.map((r: any) => (
-            <tr key={r.month}>
-              <td className="border p-2 text-center">{r.month}</td>
-              <td className="border p-2">R$ {r.beforeTax}</td>
-              <td className="border p-2">R$ {r.afterTax}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </main>
   );
 }

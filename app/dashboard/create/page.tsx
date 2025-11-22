@@ -175,7 +175,7 @@ export default function CreateFormulaPage() {
           <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">1. Identificação</h2>
 
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-black font-medium mb-2">
               Nome da Fórmula
             </label>
             <input
@@ -183,7 +183,7 @@ export default function CreateFormulaPage() {
               value={formulaName}
               onChange={(e) => setFormulaName(e.target.value)}
               placeholder="Ex: Renda Fixa (CDI + 1%)"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 shadow-sm"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 shadow-sm text-black"
               required
             />
           </div>
@@ -195,20 +195,20 @@ export default function CreateFormulaPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Valor */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">Valor (R$)</label>
+                <label className="block text-black font-medium mb-2">Valor (R$)</label>
                 <input
                   type="number"
                   step="0.01"
                   value={investment.amount}
                   onChange={(e) => handleInvestmentChange("amount", e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 text-black"
                   required
                 />
               </div>
 
               {/* Fator */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-black font-medium mb-2">
                   Fator/Rendimento (ex: 1.05)
                 </label>
                 <input
@@ -216,20 +216,20 @@ export default function CreateFormulaPage() {
                   step="0.001"
                   value={investment.factor}
                   onChange={(e) => handleInvestmentChange("factor", e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 text-black"
                   required
                 />
               </div>
 
               {/* Tipo */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-black font-medium mb-2">
                   Tipo de Investimento
                 </label>
                 <select
                   value={investment.type}
                   onChange={(e) => handleInvestmentChange("type", e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-500 text-black"
                 >
                   {investmentTypes.map((t) => (
                     <option key={t} value={t}>
@@ -275,7 +275,7 @@ export default function CreateFormulaPage() {
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {/* Tipo de taxa */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium text-black mb-1">
                         Tipo de Taxa
                       </label>
                       <select
@@ -283,7 +283,7 @@ export default function CreateFormulaPage() {
                         onChange={(e) =>
                           handleTaxChange(index, "type", e.target.value)
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-black"
                       >
                         {taxTypes.map((t) => (
                           <option key={t} value={t}>
@@ -295,7 +295,7 @@ export default function CreateFormulaPage() {
 
                     {/* Fator */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium text-black mb-1">
                         Fator (%)
                       </label>
                       <input
@@ -305,13 +305,13 @@ export default function CreateFormulaPage() {
                         onChange={(e) =>
                           handleTaxChange(index, "factor", e.target.value)
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-black"
                       />
                     </div>
 
                     {/* Applies */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium text-black mb-1">
                         Aplica-se sobre
                       </label>
                       <select
@@ -319,7 +319,7 @@ export default function CreateFormulaPage() {
                         onChange={(e) =>
                           handleTaxChange(index, "applies", e.target.value)
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-black"
                       >
                         {taxApplies.map((t) => (
                           <option key={t} value={t}>

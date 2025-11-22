@@ -58,10 +58,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const data = await apiClient.post<{ user: ApiUser; token: string }>(
-        "/api/users/login",
+      const data = await apiClient.post<{ token: string; user: ApiUser }>(
+        "/api/auth/login",
         { email, password }
       );
+
       setToken(data.token);
       setUser(data.user);
       localStorage.setItem("token", data.token);
@@ -78,9 +79,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (name: string, email: string, password: string, role: 'admin' | 'default' = 'default') => {
     setIsLoading(true);
     try {
-      await apiClient.post("/api/users", { name, email, password, role });
-      // Após o registro, faz login automaticamente
-      await login(email, password);
+      const data = await apiClient.post<{ token: string; user: ApiUser }>(
+        "/api/auth/register",
+        { name, email, password, role }
+      );
+
+      setToken(data.token);
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
+      router.push("/dashboard");
     } catch (error) {
       console.error("Falha no registro:", error);
       alert("Erro ao registrar. O email já pode estar em uso.");
