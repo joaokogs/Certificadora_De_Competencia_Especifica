@@ -99,7 +99,7 @@ export default function CreateFormulaPage() {
       case "initial":
       case "end":
       case "factor":
-        tax[field] = value === "" ? null : Number(value);
+        tax[field] = (value === "" ? null : Number(value)) as any;;
         break;
 
       case "type":
